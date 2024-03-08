@@ -23,10 +23,9 @@ public class Animal {
     }
 
     public void envelhecer(int nivel) {
-        estagio += nivel;
-        if (estagio >= 4) {
+        estagio = Math.min(4, nivel + estagio);
+        if (estagio == 4) {
             System.out.println("warning: " + especie + " morreu");
-            estagio = 4;
         }
     }
 

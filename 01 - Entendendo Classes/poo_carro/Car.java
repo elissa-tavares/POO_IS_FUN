@@ -23,19 +23,18 @@ public class Car{
         //se a quatidade de passageiros é igual ao limite 
         if(pass == PASS_MAX){
             System.out.println("fail: limite de pessoas atingido");
+            return;
         }  
-        else { //adiciona o passageiro
-            pass++;
-        }
+        pass++;
     }
 
     public void leave() {
         //se nao há nenhum passageiro 
         if(pass == 0){
             System.out.println("fail: nao ha ninguem no carro");
-        } else { //se há, remove o passageiro
-            pass--;
+            return;
         }
+        pass--;
     }
 
     public void fuel(int addGas) {
@@ -46,13 +45,8 @@ public class Car{
         /*como nao caiu no if anterior, o tanque não esta cheiro,
          * deve ser abastecido
         */
-        else {
-            if(gas + addGas > GAS_MAX){ //se a quatidade do abastecimento vai exceder
-                gas = GAS_MAX; //para quando chegar no MAX
-                return;
-            }
-            gas += addGas; //abastece normalmente
-        }
+        //retorna o menor valor entre GAS_MAX e gas + addGas
+        gas = Math.min(GAS_MAX, gas + addGas);
              
     }
 
@@ -70,13 +64,12 @@ public class Car{
             System.out.println("fail: tanque vazio apos andar " + gas + " km"); //a quntidade de km andado é a quantidade de gas que eu tinha 
             km += gas; //andei a quatidade de km correspondente ao meu gas
             gas = 0; //fiquei no prego sem gas
+            return;
         }
-        //a quantidade de gas é suficiente pra eu andar os km que quero
-        else {
+            //a quantidade de gas é suficiente pra eu andar os km que quero
             //acumulo os km que andei
             km += addKm;
             //subtraio a quatidade de gas que gastei pra percorrer os km
             gas -= addKm;
-        }
     }   
 }

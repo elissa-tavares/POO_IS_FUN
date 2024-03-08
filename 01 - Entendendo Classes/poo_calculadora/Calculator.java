@@ -21,11 +21,12 @@ public class Calculator {
     }
 
     public void chargeBattery(int value) { //nao aumenta a bateria alem do BATERRY_MAX
-        if(battery + value > BATERRY_MAX){
-            battery = BATERRY_MAX;
-            return;
-        }
-        battery += value;
+        battery = Math.min(BATERRY_MAX, value + battery);
+        // if(battery + value > BATERRY_MAX){
+        //     battery = BATERRY_MAX;
+        //     return;
+        // }
+        // battery += value;
     }
 
     private boolean useBattery() {
@@ -33,20 +34,18 @@ public class Calculator {
             System.out.println("fail: bateria insuficiente");
             return false;
         }
+        battery--;
         return true;
     }
 
     public void sum(int a, int b) {
         if (useBattery()) {
-            battery--;
             display = (float) a + b;
         }
     }
 
     public void division(int num, int den) {
         if(useBattery()){
-            battery--;
-
             if(den == 0){
                 System.out.println("fail: divisao por zero");
                 return;
